@@ -1,0 +1,27 @@
+﻿<RadzenSidebar style="bottom: 0px; position: absolute; top: 50px">
+    <ChildContent>
+        <RadzenPanelMenu>
+            <ChildContent>
+                <RadzenPanelMenu>
+                    <ChildContent>
+                        <RadzenPanelMenuItem Icon="home" Text="Home" Path="index" />
+                        <RadzenPanelMenuItem Icon="oi oi-plus" Text="Counter" Path="counter" />
+                        <RadzenPanelMenuItem Icon="oi oi-list-rich" Text="Fetch Data" Path="fetchdata" />
+                    </ChildContent>
+                </RadzenPanelMenu>
+            </ChildContent>
+        </RadzenPanelMenu>
+    </ChildContent>
+</RadzenSidebar>
+
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

@@ -1,0 +1,42 @@
+﻿@inherits LayoutComponentBase
+
+<RadzenDialog />
+<RadzenNotification />
+<RadzenTooltip />
+<RadzenContextMenu />
+
+
+<PageTitle>Network Service</PageTitle>
+
+<RadzenHeader Style="height: 50px; width: 100%">
+    <ChildContent>
+        <div class="row align-items-center justify-content-start">
+            <div class="col-md-8 col-sm-8 col-8 col-lg-8 col-xl-8">
+                <RadzenSidebarToggle style="margin-right: 0px; float: left" Click="@MainSidebarToggleClick" />
+                <RadzenLabel Text="Network Services" />
+            </div>
+        </div>
+    </ChildContent>
+</RadzenHeader>
+<RadzenBody @ref="MainBody" Style=@($"bottom: 0px; left: 0px; margin-top: 0px; position: absolute; right: 0px; top: 50px; overflow-y: auto; margin-left: 260px;")>
+    <ChildContent>
+        <RadzenContentContainer Name="main">
+            @Body
+        </RadzenContentContainer>
+    </ChildContent>
+</RadzenBody>
+<RadzenSidebar @ref="MainSidebar" style="bottom: 0px; position: absolute; top: 50px; width: 260px">
+    <ChildContent>
+        <RadzenPanelMenu>
+            <ChildContent>
+                <RadzenPanelMenu>
+                    <ChildContent>
+                        <RadzenPanelMenuItem Icon="home" Path=" " />
+                        <RadzenPanelMenuItem Icon="oi oi-plus" Path="counter" />
+                        <RadzenPanelMenuItem Icon="oi oi-list-rich" Path="fetchdata" />
+                    </ChildContent>
+                </RadzenPanelMenu>
+            </ChildContent>
+        </RadzenPanelMenu>
+    </ChildContent>
+</RadzenSidebar>
