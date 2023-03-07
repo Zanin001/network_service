@@ -31,9 +31,13 @@
             <ChildContent>
                 <RadzenPanelMenu>
                     <ChildContent>
-                        <RadzenPanelMenuItem Icon="home" Path=" " />
-                        <RadzenPanelMenuItem Icon="oi oi-plus" Path="counter" />
-                        <RadzenPanelMenuItem Icon="oi oi-list-rich" Path="fetchdata" />
+                        <RadzenPanelMenuItem Icon="home" Path=" " Text="Home" />
+                        <RadzenPanelMenuItem Icon="alternate_email" Text="SMTP">
+                            <ChildContent>
+                                <RadzenPanelMenuItem Icon="settings" Path="smtp-settings" Text="Configurations" />
+                                <RadzenPanelMenuItem Icon="send" Path="send-email" Text="Send Email" />
+                            </ChildContent>
+                        </RadzenPanelMenuItem>
                     </ChildContent>
                 </RadzenPanelMenu>
             </ChildContent>

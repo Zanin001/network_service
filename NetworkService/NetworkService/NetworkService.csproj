@@ -14,4 +14,12 @@
     <PackageReference Include="Radzen.Blazor" Version="4.7.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\StmpSettings.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\StmpSettings.razor" />
+  </ItemGroup>
+
 </Project>
