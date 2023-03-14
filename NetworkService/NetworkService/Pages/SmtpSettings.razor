@@ -1,0 +1,65 @@
+﻿@page "/smtp-settings"
+@using NetworkService.Models;
+@using Radzen
+
+<PageTitle>SMTP Settings</PageTitle>
+
+<div class="row align-items-center">
+    <RadzenHeading Text="SMTP Settings" />
+</div>
+<RadzenContent Container="main">
+    <ChildContent>
+        <RadzenTemplateForm Data=@(SmtpSetting) TItem="NetworkService.Models.SmtpSettings">
+            <ChildContent>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="row" style="margin-bottom: 1rem;">
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <div class="row" style="margin: auto;">
+                                    <RadzenLabel Component="Email" Text="Email" />
+                                    <RadzenTextBox @bind-Value=@(Email) Name="Email" />
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <div class="row" style="margin: auto;">
+                                    <RadzenLabel Component="Password" Text="Password" />
+                                    <RadzenPassword @bind-Value=@(SmtpSetting.Password) Name="Password"/>
+                                </div>
+                            </div>
+                            <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                <div class="row" style="margin: auto;"> 
+                                    <RadzenLabel Component="SMTP" Text="SMTP" />
+                                    <RadzenTextBox @bind-Value=@(SmtpSetting.SMTP) Name="SMTP" />
+                                </div>
+                            </div>
+                            <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                                <div class="row" style="margin: auto;">
+                                    <RadzenLabel Component="Port" Text="Port" />
+                                    <RadzenNumeric @bind-Value=@(SmtpSetting.Port) Name="Port" ShowUpDown="false" />
+                                </div>
+                            </div>
+                            <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+                                <div class="row" style="margin: auto;">
+                                    <RadzenLabel Component="SSL" Text="SSL" />
+                                    <RadzenCheckBox @bind-Value=@(SmtpSetting.SSL) Name="SSL" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                            <div  class="row" style="margin: auto;">
+                                <RadzenButton Text="Save" ButtonType="ButtonType.Submit" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ChildContent>
+        </RadzenTemplateForm>
+    </ChildContent>
+</RadzenContent>
+
+@code {
+    string Email;
+    NetworkService.Models.SmtpSettings SmtpSetting = new();
+}
