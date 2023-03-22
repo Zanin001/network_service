@@ -9,7 +9,7 @@
 </div>
 <RadzenContent Container="main">
     <ChildContent>
-        <RadzenTemplateForm Data=@(SmtpSetting) TItem="NetworkService.Models.SmtpSettings">
+        <RadzenTemplateForm Data=@(SmtpSetting) Submit=@(Submit) TItem="NetworkService.Models.SmtpSettings">
             <ChildContent>
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -62,4 +62,9 @@
 @code {
     string Email;
     NetworkService.Models.SmtpSettings SmtpSetting = new();
+
+    async Task Submit()
+    {
+        
+    }
 }
