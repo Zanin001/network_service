@@ -64,6 +64,14 @@
 
     SmtpSettings SmtpSetting = new();
 
+    protected async override Task OnInitializedAsync()
+    {
+        SmtpSetting = await QueryService.ReadItem<SmtpSettings>();
+
+        if (SmtpSetting is null)
+            SmtpSetting = new();
+    }
+
     async Task Submit()
     {
         var canSave = await CanSave();
@@ -71,7 +79,13 @@
         if (!canSave)
             return;
 
-        var response = await QueryService.CreateItem<SmtpSettings>(SmtpSetting);
+        int response = 0;
+
+        if (SmtpSetting.SmtpSettingsId == null)
+            response = await QueryService.CreateItem<SmtpSettings>(SmtpSetting);
+
+        if (SmtpSetting.SmtpSettingsId != null)
+            response = await QueryService.UpdateItem<SmtpSettings>(SmtpSetting);
 
         if (response == 0)
         {

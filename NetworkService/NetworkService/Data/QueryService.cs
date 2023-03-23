@@ -27,11 +27,24 @@ namespace NetworkService.Data
 
             return result;
         }
-        public async Task<TData> ReadItem<TData>(Expression<Func<TData, bool>> where) where TData : class
+        public async Task<TData> ReadItem<TData>(Expression<Func<TData, bool>> where = null) where TData : class
         {
-            var dbSet = _context.Set<TData>();
+            TData result = default;
+            try
+            {
+                var dbSet = _context.Set<TData>();
 
-            return dbSet.FirstOrDefault(where);
+                if (where != null)
+                    result = dbSet.FirstOrDefault(where);
+                if (where == null)
+                    result = dbSet.FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            return result;
         }
         public async Task<TData[]> ReadList<TData>(Expression<Func<TData, bool>> where) where TData : class
         {
