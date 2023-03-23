@@ -1,17 +1,9 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.EntityFrameworkCore;
 using NetworkService.Data;
 using Radzen;
 
 var builder = WebApplication.CreateBuilder(args);
-
-var DatabaseConfig = builder.Configuration.GetSection(nameof(NetworkService.Models.DatabaseConfig)).Get<NetworkService.Models.DatabaseConfig>();
-
-builder.Services.AddDbContext<NetworkServiceDbContext>(option => option.UseMySql(
-    DatabaseConfig.ConnectionString,
-    ServerVersion.Parse(DatabaseConfig.DBVersion)
-));
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -20,7 +12,8 @@ builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<ContextMenuService>();
 builder.Services.AddScoped<TooltipService>();
-builder.Services.AddScoped<QueryService>();
+
+builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();
 

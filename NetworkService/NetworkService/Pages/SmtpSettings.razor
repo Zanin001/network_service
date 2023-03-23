@@ -1,5 +1,4 @@
 ﻿@page "/smtp-settings"
-@using NetworkService.Data;
 @using NetworkService.Models;
 @using Radzen
 
@@ -10,7 +9,7 @@
 </div>
 <RadzenContent Container="main">
     <ChildContent>
-        <RadzenTemplateForm Data=@(SmtpSetting) Submit=@(Submit) TItem="SmtpSettings">
+        <RadzenTemplateForm Data=@(SmtpSetting) Submit=@(Submit) TItem="NetworkService.Models.SmtpSettings">
             <ChildContent>
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -18,7 +17,7 @@
                             <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                 <div class="row" style="margin: auto;">
                                     <RadzenLabel Component="Email" Text="Email" />
-                                    <RadzenTextBox @bind-Value=@(SmtpSetting.Email) Name="Email" />
+                                    <RadzenTextBox @bind-Value=@(Email) Name="Email" />
                                 </div>
                             </div>
                             <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
@@ -61,76 +60,11 @@
 </RadzenContent>
 
 @code {
-
-    SmtpSettings SmtpSetting = new();
+    string Email;
+    NetworkService.Models.SmtpSettings SmtpSetting = new();
 
     async Task Submit()
     {
-        var canSave = await CanSave();
-
-        if (!canSave)
-            return;
-
-        var response = await QueryService.CreateItem<SmtpSettings>(SmtpSetting);
-
-        if (response == 0)
-        {
-            NotificationService.Notify(new()
-            {
-                Severity = NotificationSeverity.Error,
-                Summary = "Error"
-            });
-            return;
-        }
-
-        if (response > 0)
-        {
-            NotificationService.Notify(new()
-            {
-                Severity = NotificationSeverity.Success,
-                Summary = "Success",
-            });
-        }
+        
     }
-
-    async Task<bool> CanSave()
-    {
-        if (string.IsNullOrEmpty(SmtpSetting.Email))
-        {
-            NotificationService.Notify(new()
-            {
-                Severity = NotificationSeverity.Warning,
-                Summary = "Email is required"
-            });
-            return false;
-        }
-
-        if (string.IsNullOrEmpty(SmtpSetting.Password))
-        {
-            NotificationService.Notify(new()
-            {
-                Severity = NotificationSeverity.Warning,
-                Summary = "Password is required"
-            });
-            return false;
-        }
-
-        if (string.IsNullOrEmpty(SmtpSetting.SMTP))
-        {
-            NotificationService.Notify(new()
-            {
-                Severity = NotificationSeverity.Warning,
-                Summary = "SMTP is required"
-            });
-            return false;
-        }
-
-        return true;
-    }
-
-    [Inject]
-    protected NotificationService NotificationService { get; set; }
-
-    [Inject]
-    protected QueryService QueryService { get; set; }
 }
