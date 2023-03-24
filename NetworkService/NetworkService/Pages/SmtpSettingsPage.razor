@@ -47,10 +47,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="align-items: end;">
                         <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
                             <div  class="row" style="margin: auto;">
-                                <RadzenButton Text="Save" ButtonType="ButtonType.Submit" />
+                                <RadzenButton Text="Save" ButtonType="ButtonType.Submit" Name="SaveButton"/>
+                            </div>
+                        </div>
+                        <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                            <div class="row" style="margin: auto">
+                                <RadzenButton Click=@(Delete) Text="Delete" Name="DeleteButton" />
                             </div>
                         </div>
                     </div>
@@ -142,8 +147,41 @@
         return true;
     }
 
+    async Task Delete()
+    {
+        if (await DialogService.Confirm("Do you want to delete?", "Confirmation", new() { OkButtonText = "Yes", CancelButtonText = "No" }) == false)
+            return;
+
+        var response = await QueryService.DeleteItem<SmtpSettings>(SmtpSetting);
+
+        if (response == 0)
+        {
+            NotificationService.Notify(new()
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = "Error"
+            });
+            return;
+        }
+
+        if (response > 0)
+        {
+            NotificationService.Notify(new()
+            {
+                Severity = NotificationSeverity.Success,
+                Summary = "Success"
+            });
+
+            SmtpSetting = new();
+        }
+    }
+
+
     [Inject]
     protected NotificationService NotificationService { get; set; }
+
+    [Inject]
+    protected DialogService DialogService { get; set; }
 
     [Inject]
     protected QueryService QueryService { get; set; }
