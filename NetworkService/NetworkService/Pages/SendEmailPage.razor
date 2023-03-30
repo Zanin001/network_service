@@ -1,0 +1,45 @@
+﻿@page "/send-email"
+@using NetworkService.Models
+@using Radzen
+
+<PageTitle>Send Email</PageTitle>
+
+<div class="row align-items-center">
+    <RadzenHeading Text="Send Email" />
+</div>
+<RadzenContent Container="main">
+    <ChildContent>
+        <RadzenTemplateForm Data=@(Email) TItem="Email" >
+            <ChildContent>
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="row" style="margin: auto;">
+                            <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="row" style="margin: auto;">
+                                    <RadzenLabel Component="Recipient" Text="Recipient" />
+                                    <RadzenTextBox @bind-Value=@(Email.Recipient) Name="Recipient" />
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="row" style="margin: auto;">
+                                    <RadzenLabel Component="Subject" Text="Subject" />
+                                    <RadzenTextBox @bind-Value=@(Email.Subject) Name="Subject" />
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="row" style="margin: auto;">
+                                    <RadzenLabel Component="Body" Text="Body" />
+                                    <RadzenHtmlEditor @bind-Value=@(Email.Body) Style="height: 20rem"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ChildContent>
+        </RadzenTemplateForm>
+    </ChildContent>
+</RadzenContent>
+
+@code {
+    Email Email = new();
+}
