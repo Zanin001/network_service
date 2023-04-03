@@ -1,6 +1,7 @@
 ﻿@page "/send-email"
 @using NetworkService.Models
 @using NetworkService.Data
+@using NetworkService.Services
 @using Radzen
 
 <PageTitle>Send Email</PageTitle>
@@ -18,7 +19,7 @@
                             <div class="col-12 col-md-12 col-lg-12 col-xl-12">
                                 <div class="row" style="margin: auto;">
                                     <RadzenLabel Component="Recipient" Text="Recipient" />
-                                    <RadzenTextBox @bind-Value=@(Email.Recipient) Name="Recipient" />
+                                    <RadzenTextBox @bind-Value=@(emails) Name="Recipient" Placeholder="Enter email addresses separated by semicolons" />
                                 </div>
                             </div>
                             <div class="col-12 col-md-12 col-lg-12 col-xl-12">
@@ -42,13 +43,36 @@
 </RadzenContent>
 
 @code {
+
     Email Email = new();
+    string emails;
 
     async Task SendEmail()
     {
         var emailConfig = await QueryService.ReadItem<SmtpSettings>();
+
+        Email.Recipients = emails.Split(';');
+
+        var response = await SmtpService.SendEmail(emailConfig, Email);
+
+        if (response)
+            NotificationService.Notify(new()
+            {
+                Severity = NotificationSeverity.Success,
+                Summary = "Success"
+            });
+
+        if (!response)
+            NotificationService.Notify(new()
+            {
+                Severity = NotificationSeverity.Success,
+                Summary = "Error"
+            });
     }
 
     [Inject]
     public QueryService QueryService { get; set; }
+
+    [Inject]
+    public NotificationService NotificationService { get; set; }
 }
