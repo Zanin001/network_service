@@ -19,7 +19,8 @@
                             <div class="col-12 col-md-12 col-lg-12 col-xl-12">
                                 <div class="row" style="margin: auto;">
                                     <RadzenLabel Component="Recipient" Text="Recipient" />
-                                    <RadzenTextBox @bind-Value=@(emails) Name="Recipient" Placeholder="Enter email addresses separated by semicolons" />
+                                    <RadzenTextBox @bind-Value=@(emails) Name="Recipient" Placeholder="Enter email addresses separated by semicolons" 
+                                        AutoComplete="true"/>
                                 </div>
                             </div>
                             <div class="col-12 col-md-12 col-lg-12 col-xl-12">
@@ -45,7 +46,14 @@
 @code {
 
     Email Email = new();
+    EmailAddress[] EmailAddresses;
     string emails;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Email = new();
+        EmailAddresses = await QueryService.ReadList<EmailAddress>();
+    }
 
     async Task SendEmail()
     {

@@ -46,11 +46,25 @@ namespace NetworkService.Data
 
             return result;
         }
-        public async Task<TData[]> ReadList<TData>(Expression<Func<TData, bool>> where) where TData : class
+        public async Task<TData[]> ReadList<TData>(Expression<Func<TData, bool>> where = null) where TData : class
         {
-            var dbSet =_context.Set<TData>();
+            TData[] result = default;
 
-            return dbSet.Where(where).ToArray();
+            try
+            {
+                var dbSet = _context.Set<TData>();
+
+                if (where != null)
+                    result = dbSet.Where(where).ToArray();
+                if (where == null)
+                    result = dbSet.ToArray();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            return result;
         }
         public async Task<int> UpdateItem<TData>(TData item) where TData : class
         {
