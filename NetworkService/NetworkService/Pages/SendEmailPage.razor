@@ -1,5 +1,6 @@
 ﻿@page "/send-email"
 @using NetworkService.Models
+@using NetworkService.Data
 @using Radzen
 
 <PageTitle>Send Email</PageTitle>
@@ -42,4 +43,12 @@
 
 @code {
     Email Email = new();
+
+    async Task SendEmail()
+    {
+        var emailConfig = await QueryService.ReadItem<SmtpSettings>();
+    }
+
+    [Inject]
+    public QueryService QueryService { get; set; }
 }
