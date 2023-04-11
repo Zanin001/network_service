@@ -46,13 +46,13 @@
 @code {
 
     Email Email = new();
-    EmailAddress[] EmailAddresses;
+    //EmailAddress[] EmailAddresses;
     string emails;
 
     protected override async Task OnInitializedAsync()
     {
         Email = new();
-        EmailAddresses = await QueryService.ReadList<EmailAddress>();
+        //EmailAddresses = await QueryService.ReadList<EmailAddress>();
     }
 
     async Task SendEmail()
