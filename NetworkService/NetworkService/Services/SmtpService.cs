@@ -12,10 +12,12 @@ namespace NetworkService.Services
 
             try
             {
+                var password = CryptographyService.Decrypt(smtpSettings.Password);
+
                 using var smtpClient = new SmtpClient(smtpSettings.SMTP)
                 {
                     Port = smtpSettings.Port,
-                    Credentials = new NetworkCredential(smtpSettings.Email, smtpSettings.Password),
+                    Credentials = new NetworkCredential(smtpSettings.Email, password),
                     EnableSsl = smtpSettings.SSL
                 };
 

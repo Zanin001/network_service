@@ -1,6 +1,7 @@
 ﻿@page "/smtp-settings"
 @using NetworkService.Data;
 @using NetworkService.Models;
+@using NetworkService.Services;
 @using Radzen
 
 <PageTitle>SMTP Settings</PageTitle>
@@ -84,6 +85,8 @@
         if (!canSave)
             return;
 
+        SmtpSetting.Password = CryptographyService.Encrypt(SmtpSetting.Password);
+        
         int response = 0;
 
         if (SmtpSetting.SmtpSettingsId == null)
