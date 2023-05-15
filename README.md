@@ -13,11 +13,11 @@ mapping.
 </h2>
 To created the STMP Service was used the System.Net.Mail.SmtpClient. Need to be configured in the page STMP > Configurations.
 <div>
-![STMP Configuration](Readme/Images/SmtpConfiguration.png)
+  <img src="Readme/Images/SmtpConfiguration.png" alt="SMTP Configuration">
 </div>
 When configurated, now you can send a email in the page STMP > Send Email.
 <div>
-![SMTP Send Email](Readme/Images/StmpSendEmail.png)
+  <img src="Readme/Images/StmpSendEmail.png" alt="SMTP Send Email">
 </div>
 To send for many email addresses is need separate with semicolons in the recipent textbox.
   
@@ -26,13 +26,13 @@ To send for many email addresses is need separate with semicolons in the recipen
   </h2>
   To configure the database is need to change the Connection String in the appsettings.json and the DbVersion to your respective database and version
   <div>
-    ![Appsettings](Readme/Images/Configure.png)
+    <img src="Readme/Images/Configure.png" alt="Appsettings">
   </div>
  
   <h2>
     Depedencies
   </h2>
   <ul>
-    <li>[.NET 7]([https://www.radzen.com/blazor-studio/pricing/](https://dotnet.microsoft.com/en-us/download/dotnet/7.0))</li>
-    <li>[MySQL](https://www.mysql.com/downloads/)</li>
+  <li> <a href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">.NET 7</a></li>
+  <li><a href="https://www.mysql.com/downloads/">MySQL</a></li>
   </ul>
