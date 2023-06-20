@@ -2,6 +2,7 @@
 @using NetworkService.Models
 @using NetworkService.Data
 @using NetworkService.Services
+@using NetworkService.Utils.Enumerators
 @using Radzen
 
 <PageTitle>Http Request</PageTitle>
@@ -9,22 +10,58 @@
 <div class="row align-items-center">
     <RadzenHeading Text="HTTP Request" />
 </div>
+
 <RadzenContent Container="main">
     <ChildContent>
-        <div class="row">
-            <div class="col-12 col-md-12 col-lg-12 col-xl-12">
-                <div class="row" style="margin: auto;">
-                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
-                        @*<RadzenDropDown*@
-                    </div>
+        <div class="col-8 col-md-8 col-lg-8 col-xl-8">
+            <div class="row">
+                <div class="col-2 col-md-2 col-lg-2 col-xl-2">
+                    <RadzenLabel Text="Method" Component="MethodComponent" Style="display: block;"/>
+                    <RadzenDropDown @bind-Value=@(HttpMethod) TValue="HttpMethodType" Data=@(NetworkService.Utils.Dictionaries.HttpMethods) TextProperty="Value" ValueProperty="Key" 
+                        Name="MethodComponent" Style="display: block;" />
+                </div>
+                <div class="col-7 col-md-7 col-lg-7 col-xl-7">
+                    <RadzenLabel Text="Url" Component="UrlComponent" Style="display: block"/>
+                    <RadzenTextBox @bind-Value=@(Url) Name="UrlComponent" Style="display: block; width: 100%" />
+                </div>
+                <div class="col-1 col-md-1 col-lg-1 col-xl-1 align-self-end">
+                    <RadzenButton Text="Send" Style="display: block;" Click=@(() => SendRequest())/>
                 </div>
             </div>
+        </div>
+        <div class="col-8 col-md-8 col-lg-8 col-xl-8" style="margin-top: 1rem;">
+            <RadzenLabel Text="Body" Component="BodyComponent" Style="display: block;" />
+            <RadzenTextArea @bind-Value=@(Body) Name="BodyComponent" Style="display: block; width: 90%; height: 200px;" />
+        </div>
+        <div class="col-8 col-md-8 col-lg-8 col-xl-8" style="margin-top: 1rem;">
+            <RadzenLabel Text="Response" Component="ResponseComponent" Style="display: block;" />
+            <RadzenTextArea @bind-Value=@(Response) Name="ResponseComponent" Style="display: block; width: 90%; height: 200px;" />
         </div>
     </ChildContent>
 </RadzenContent>
 
-<h3>HttpRequest</h3>
-
 @code {
+    HttpMethodType HttpMethod;
+    string Url;
+    string Body;
+    string Response;
 
+    async Task SendRequest()
+    {
+        switch (HttpMethod)
+        {
+            case HttpMethodType.GET:
+                Response = await HttpService.Get(Url);
+                break;
+            case HttpMethodType.POST:
+                Response = await HttpService.Post(Url, Body);
+                break;
+            case HttpMethodType.PUT:
+                Response = await HttpService.Put(Url, Body);
+                break;
+            case HttpMethodType.DELETE:
+                Response = await HttpService.Delete(Url);
+                break;
+        }
+    }
 }

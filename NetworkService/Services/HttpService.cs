@@ -29,11 +29,11 @@ namespace NetworkService.Services
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
 
-        public async static Task<string> Post<TValue>(string url, TValue content)
+        public async static Task<string> Post(string url, string content)
         {
             using var stream = new MemoryStream();
             stream.Position = 0;
-            HttpContent httpContent = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
+            HttpContent httpContent = new StringContent(content, Encoding.UTF8, "application/json");
 
             using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, url) { Content = httpContent };
             using var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, HttpCompletionOption.ResponseHeadersRead);
@@ -51,11 +51,11 @@ namespace NetworkService.Services
             return await httpResponseMessage.Content.ReadAsStringAsync();
         }
 
-        public async static Task<string> Put<TValue> (string url, TValue content)
+        public async static Task<string> Put (string url, string content)
         {
             using var stream = new MemoryStream();
             stream.Position = 0;
-            HttpContent httpContent = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
+            HttpContent httpContent = new StringContent(content, Encoding.UTF8, "application/json");
 
             using var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, url) { Content = httpContent };
             using var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage, HttpCompletionOption.ResponseHeadersRead);
